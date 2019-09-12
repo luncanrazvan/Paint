@@ -1,0 +1,227 @@
+<html>
+    <head>
+        <title>Paint</title>
+        <link rel="stylesheet" href="css/style.css"> 
+        <body id="body1">
+            <canvas id="myCanvas" width="1690" height="750" style="border: 1px solid #000000;"></canvas>
+            <label id="selectShapeLabel" class="labels">Select Shape:</label>
+            <select id="selectShape">
+                <option>Circle</option>
+                <option>Square</option>
+                <option>Rectangle</option>
+            </select>
+            <input type="checkbox" id="symmetricalDrawing">
+            <label id="symmetricalLabel" class="labels">Symmetrical</label>
+            <button id="buttonForColors">Colors</button>
+            <label id="sizeLabel" class="labels">Size:</label>
+            <input type="range" min="1" max="100" id="paintSize">
+            <label class="labels" id="fillLabel">Fill:</label>
+            <button id="buttonChooseColorFill">Choose</button>
+            <label class="labels">Eraser:</label>
+            <button id="buttonEraser">Enable/Disable</button>
+            <label class="labels">Eraser Size:</label>
+            <input type="range" min="1" max="100" id="eraserSize">
+            <img width="50" height="30" style="position: absolute; top:765; left:1010;" src="imgs/4sim.jpg"/>
+            <div id="colorsPalette">
+                <button id="red1"></button>
+                <button id="green1">Green</button>
+                <button id="blue1">Blue</button>
+                <button id="white1">White</button>
+                <button id="black1">Black</button>
+            </div>
+
+            <div id="colorsPalette1">
+                <button id="red2"></button>
+                <button id="green2">Green</button>
+                <button id="blue2">Blue</button>
+                <button id="white2">White</button>
+                <button id="black2">Black</button>
+            </div>
+        </body>
+        <script src="js/jquery.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function(){
+              
+                var buttonRed=document.getElementById("red1");
+                buttonRed.innerHTML='<img width="24" height="12" src="imgs/red.jpg"/>';
+                
+                var buttonBlue=document.getElementById("blue1");
+                buttonBlue.innerHTML='<img width="24" height="12" src="imgs/blue.jpg"/>';
+                
+                var buttonGreen=document.getElementById("green1");
+                buttonGreen.innerHTML='<img width="24" height="12" src="imgs/green.jpg"/>';
+                
+                var buttonWhite=document.getElementById("white1");
+                buttonWhite.innerHTML='<img width="24" height="12" src="imgs/white.png"/>';
+                
+                var buttonBlack=document.getElementById("black1");
+                buttonBlack.innerHTML='<img width="24" height="12" src="imgs/black.jpg"/>';
+
+                var buttonRed=document.getElementById("red2");
+                buttonRed.innerHTML='<img width="24" height="12" src="imgs/red.jpg"/>';
+                
+                var buttonBlue=document.getElementById("blue2");
+                buttonBlue.innerHTML='<img width="24" height="12" src="imgs/blue.jpg"/>';
+                
+                var buttonGreen=document.getElementById("green2");
+                buttonGreen.innerHTML='<img width="24" height="12" src="imgs/green.jpg"/>';
+                
+                var buttonWhite=document.getElementById("white2");
+                buttonWhite.innerHTML='<img width="24" height="12" src="imgs/white.png"/>';
+                
+                var buttonBlack=document.getElementById("black2");
+                buttonBlack.innerHTML='<img width="24" height="12" src="imgs/black.jpg"/>';
+
+                $("#colorsPalette").hide();
+                $("#colorsPalette1").hide();
+                var color="";
+                var clicked=false;
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+
+                var enabled=false;
+
+                $("#buttonEraser").click(function(){
+                    if(enabled){
+                        enabled=false;
+                        alert("Eraser disabled.");
+                    }else{
+                        alert("Eraser enabled.");
+                        enabled=true;
+                    }
+                });
+
+                $("#buttonForColors").click(function(){
+                    $("#colorsPalette").show();
+                });
+
+                $("#buttonChooseColorFill").click(function(){
+                    $("#colorsPalette1").show();
+                });
+
+                $("#red1").click(function(){
+                    color="red";
+                    $("#colorsPalette").hide();
+                });
+
+                $("#blue1").click(function(){
+                    color="blue";
+                    $("#colorsPalette").hide();
+                });
+
+                $("#green1").click(function(){
+                    color="green";
+                    $("#colorsPalette").hide();
+                });
+
+                $("#white1").click(function(){
+                    color="white";
+                    $("#colorsPalette").hide();
+                });
+
+                $("#black1").click(function(){
+                    color="black";
+                    $("#colorsPalette").hide();
+                });
+
+                $("#red2").click(function(){
+                    ctx.fillStyle="red";
+                    ctx.fillRect(0,0,canvas.width,canvas.height);
+                    $("#colorsPalette1").hide();
+                });
+
+                $("#blue2").click(function(){
+                    ctx.fillStyle="blue";
+                    ctx.fillRect(0,0,canvas.width,canvas.height);
+                    $("#colorsPalette1").hide();
+                });
+
+                $("#green2").click(function(){
+                    ctx.fillStyle="green";
+                    ctx.fillRect(0,0,canvas.width,canvas.height);
+                    $("#colorsPalette1").hide();
+                });
+
+                $("#white2").click(function(){
+                    ctx.fillStyle="white";
+                    ctx.fillRect(0,0,canvas.width,canvas.height);
+                    $("#colorsPalette1").hide();
+                });
+
+                $("#black2").click(function(){
+                    ctx.fillStyle="black";
+                    ctx.fillRect(0,0,canvas.width,canvas.height);
+                    $("#colorsPalette1").hide();
+                });
+                document.addEventListener("mousedown",checkMouseDown);
+                document.addEventListener("mouseup",checkMouseUp);
+                document.addEventListener("dblclick",function(event){
+                    if(event.clientY<=750){
+                        ctx.beginPath();
+                        ctx.arc(event.clientX, event.clientY, 100, 0, Math.PI * 2);
+                        ctx.fillStyle = color;
+                        ctx.fill();
+                    }
+                });
+
+                function checkMouseDown(){
+                    clicked=true;
+                }
+
+                function checkMouseUp(){
+                    clicked=false;
+                }
+
+                $("#buttonForColors").click(function(){
+
+                });
+
+                document.addEventListener("mousemove", function(event){
+                    var size=0;
+                    if(clicked){
+                        if(event.clientY<=750){
+                            var shape=$("#selectShape").val();
+                            size=$("#paintSize").val();
+                            if(enabled){
+                                var eraserSize=$("#eraserSize").val();
+                                ctx.beginPath();
+                                ctx.rect(event.clientX,event.clientY,eraserSize,eraserSize);
+                                ctx.fillStyle="white";
+                                ctx.fill();
+                            }else{
+                                if(shape=="Circle"){
+                                
+                                ctx.beginPath();
+                                ctx.arc(event.clientX,event.clientY , size, 0, Math.PI * 2);                           
+                                if($("#symmetricalDrawing").is(":checked")){
+                                    ctx.arc(event.clientX+300, event.clientY, size, 0, Math.PI * 2);
+                                }
+                                ctx.fillStyle = color;
+                                ctx.fill();
+                                }
+                                if(shape=="Square"){
+                                    ctx.beginPath();
+                                    ctx.rect(event.clientX,event.clientY,size,size);
+                                    if($("#symmetricalDrawing").is(":checked")){
+                                        ctx.rect(event.clientX+300,event.clientY,size,size);
+                                    }
+                                    ctx.fillStyle=color;
+                                    ctx.fill();
+                                }
+                                if(shape=="Rectangle"){
+                                    ctx.beginPath();
+                                    ctx.rect(event.clientX,event.clientY,size+0.2,size);
+                                    if($("#symmetricalDrawing").is(":checked")){
+                                        ctx.rect(event.clientX+300,event.clientY,size+0.2,size);
+                                    }
+                                    ctx.fillStyle=color;
+                                    ctx.fill();
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    </head>
+</html>

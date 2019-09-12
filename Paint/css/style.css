@@ -1,0 +1,31 @@
+#colorsPalette{
+    position: absolute;
+    top:700;
+    left:300;
+    width:150;
+    height: 50;
+    border: 3px solid aquamarine;
+    background-color: antiquewhite
+}
+
+#colorsPalette1{
+    position: absolute;
+    top:700;
+    left:550;
+    width:150;
+    height: 50;
+    border: 3px solid aquamarine;
+    background-color: antiquewhite
+}
+
+#body1{
+    background-color:  #2D3142;;
+}
+
+#myCanvas{
+    background-color: white;
+}
+
+.labels{
+    color:darkgoldenrod;
+}
