@@ -3,7 +3,7 @@
 In order to start this program you will have to double click on the Paint html file.
 <br>
 <h3>How to draw?</h3>
-Drawing is made by holding the left mouse button and dragging around the screen.
+Drawing is made by holding the left mouse button and dragging around the canvas.
 
 <h3>Customizing your drawings</h3>
 There are many ways to add style to your drawing:
